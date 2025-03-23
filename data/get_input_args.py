@@ -25,7 +25,7 @@ def get_input_args():
     """
     Retrieves and parses the 3 command line arguments provided by the user when
     they run the program from a terminal window. This function uses Python's 
-    argparse module to created and defined these 3 command line arguments. If 
+    argparse module to create and define these 3 command line arguments. If 
     the user fails to provide some or all of the 3 arguments, then the default 
     values are used for the missing arguments. 
     Command Line Arguments:
@@ -36,13 +36,21 @@ def get_input_args():
     Parameters:
      None - simply using argparse module to create & store command line arguments
     Returns:
-     parse_args() -data structure that stores the command line arguments object  
+     parse_args() - data structure that stores the command line arguments object  
     """
-    # Create Parse using ArgumentParser
-    
-    # Create 3 command line arguments as mentioned above using add_argument() from ArguementParser method
-    
-    
-    # Replace None with parser.parse_args() parsed argument collection that 
-    # you created with this function 
-    return None
+    # Create a parser object
+    parser = argparse.ArgumentParser()
+
+    # Add the three expected arguments with their defaults
+    parser.add_argument('--dir', type=str, default='pet_images/', 
+                        help='path to the folder of pet images')
+    parser.add_argument('--arch', type=str, default='vgg', choices=['vgg', 'resnet', 'alexnet'], 
+                        help='CNN model architecture to use')
+    parser.add_argument('--dogfile', type=str, default='dognames.txt', 
+                        help='text file with the list of valid dog names')
+
+    # Parse the command line arguments
+    in_args = parser.parse_args()
+
+    # Return the parsed arguments
+    return in_args
