@@ -96,3 +96,15 @@ if __name__ == "__main__":
 
 
 
+# this is an example for a result which appear on a table
+
+
+# # Total Images    40 
+# # Dog Images      30 
+# #Not-a-Dog Images 10
+
+
+# CNN Model Architecture:  % Not-a-Dog correct  % Dogs correct  % Breeds correct % Match labels
+# ResNet                   90.0%                100.0%          90.0%            82.5% 
+# AlexNet                  100.0%               100.0%          80.0%            75.0% 
+# VGG                      100.0%               100.0%          93.3%            87.5%
