@@ -72,4 +72,4 @@ pct_correct_notdogs : 100.00%
 
 INCORRECT Dog/NOT Dog Assignments:
 
-** Total Elapsed Runtime: 0:0:1
+** Total Elapsed Runtime: 0:0:0
