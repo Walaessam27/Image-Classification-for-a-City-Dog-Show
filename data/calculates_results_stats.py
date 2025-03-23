@@ -73,31 +73,37 @@ def calculates_results_stats(results_dic):
     
     # Sets all counters to initial values of zero so that they can 
     # be incremented while processing through the images in results_dic 
+    results_stats_dic['n_images'] = 0  # Add initialization for total images
     results_stats_dic['n_dogs_img'] = 0
     results_stats_dic['n_match'] = 0
     results_stats_dic['n_correct_dogs'] = 0
     results_stats_dic['n_correct_notdogs'] = 0
     results_stats_dic['n_correct_breed'] = 0       
+    results_stats_dic['n_notdogs_img'] = 0  # Add initialization for non-dog images
     
     # process through the results dictionary
     for key in results_dic:
-         
+        results_stats_dic['n_images'] += 1  # Increment for each image processed
+        
+        # Count number of dog images and non-dog images
+        if results_dic[key][3] == 1:
+            results_stats_dic['n_dogs_img'] += 1
+        else:
+            results_stats_dic['n_notdogs_img'] += 1
+        
         # Labels Match Exactly
         if results_dic[key][2] == 1:
             results_stats_dic['n_match'] += 1
 
-    # TODO: 5a. Count how many pet images of dogs had their breed correctly classified
-    # Pet Image Label is a Dog AND Labels match - counts Correct Breed
-    if results_dic[key][3] == 1 and results_dic[key][2] == 1:
-        results_stats_dic['n_correct_breed'] += 1
+        # Count how many pet images of dogs had their breed correctly classified
+        if results_dic[key][3] == 1 and results_dic[key][2] == 1:
+            results_stats_dic['n_correct_breed'] += 1
 
-    # TODO: 5b. Count how many pet images that are NOT dogs were correctly classified
-    # Pet Image Label is NOT a Dog
-    if results_dic[key][3] == 0 and results_dic[key][4] == 0:
-        results_stats_dic['n_correct_notdogs'] += 1
+        # Count how many pet images that are NOT dogs were correctly classified
+        if results_dic[key][3] == 0 and results_dic[key][4] == 0:
+            results_stats_dic['n_correct_notdogs'] += 1
 
-    # Calculates run statistics (counts & percentages) below that are calculated
-    # using the counters from above.
+    # Calculates run statistics (counts & percentages)
     
     # Calculates % correct for matches
     if results_stats_dic['n_images'] > 0:  # Ensure we avoid division by zero
@@ -111,21 +117,8 @@ def calculates_results_stats(results_dic):
     if results_stats_dic['n_dogs_img'] > 0:  # Ensure we avoid division by zero
         results_stats_dic['pct_correct_breed'] = (results_stats_dic['n_correct_breed'] / results_stats_dic['n_dogs_img']) * 100.0
 
-    # TODO: 5c. Calculate the percentage of correctly matched images
-    # This is the percentage of images where both labels match
-    if results_stats_dic['n_images'] > 0:  # Avoid division by zero
-        results_stats_dic['pct_match'] = (results_stats_dic['n_match'] / results_stats_dic['n_images']) * 100.0
-
-    # TODO: 5d. Calculate the percentage of correctly classified dog images
-    if results_stats_dic['n_dogs_img'] > 0:  # Avoid division by zero
-        results_stats_dic['pct_correct_dogs'] = (results_stats_dic['n_correct_dogs'] / results_stats_dic['n_dogs_img']) * 100.0
-
-    # TODO: 5e. Calculate the percentage of correctly classified breeds of dogs
-    if results_stats_dic['n_dogs_img'] > 0:  # Avoid division by zero
-        results_stats_dic['pct_correct_breed'] = (results_stats_dic['n_correct_breed'] / results_stats_dic['n_dogs_img']) * 100.0
-
-    # TODO: 5f. Calculate the percentage of correctly classified non-dog images
-    if results_stats_dic['n_notdogs_img'] > 0:  # Avoid division by zero
+    # Calculates % correct non-dogs
+    if results_stats_dic['n_notdogs_img'] > 0:  # Ensure we avoid division by zero
         results_stats_dic['pct_correct_notdogs'] = (results_stats_dic['n_correct_notdogs'] / results_stats_dic['n_notdogs_img']) * 100.0
 
     # Finally, return the results_stats_dic dictionary
