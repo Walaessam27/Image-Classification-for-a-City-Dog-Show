@@ -88,7 +88,45 @@ def main():
           str(int(tot_time / 3600)) + ":" +
           str(int((tot_time % 3600) / 60)) + ":" +
           str(int((tot_time % 3600) % 60)) )
+    
+    # Inside your main function, after collecting the necessary results
 
+    def print_results_table(results_stats, in_arg):
+        """
+        This function prints out the results in the table format as requested.
+        It uses the results from the classification and calculates key statistics to display.
+        """
+        # Extracting values from the results_stats dictionary (assuming the necessary fields are included)
+        model_architectures = ['ResNet', 'AlexNet', 'VGG']
+        correct_not_a_dog = [results_stats['ResNet']['not_a_dog_accuracy'], 
+                            results_stats['AlexNet']['not_a_dog_accuracy'], 
+                            results_stats['VGG']['not_a_dog_accuracy']]
+        correct_dog = [results_stats['ResNet']['dog_accuracy'], 
+                    results_stats['AlexNet']['dog_accuracy'], 
+                    results_stats['VGG']['dog_accuracy']]
+        breed_accuracy = [results_stats['ResNet']['breed_accuracy'], 
+                        results_stats['AlexNet']['breed_accuracy'], 
+                        results_stats['VGG']['breed_accuracy']]
+        match_labels = [results_stats['ResNet']['label_match_accuracy'], 
+                        results_stats['AlexNet']['label_match_accuracy'], 
+                        results_stats['VGG']['label_match_accuracy']]
+
+        # Print the table header
+        print("\nCNN Model Architecture | % Not-a-Dog Correct | % Dogs Correct | % Breeds Correct | % Match Labels")
+        print("-" * 80)
+
+        # Print results for each model
+        for i, model in enumerate(model_architectures):
+            print(f"{model:<25} | {correct_not_a_dog[i]:<18} | {correct_dog[i]:<15} | {breed_accuracy[i]:<17} | {match_labels[i]:<16}")
+
+    # In the main function, call print_results_table with the results_stats data and in_arg:
+    # Assuming 'results_stats' contains the necessary accuracy data for each model
+
+    print_results_table(results_stats, in_arg)
+
+
+
+  
 
 # Call to main function to run the program
 if __name__ == "__main__":
